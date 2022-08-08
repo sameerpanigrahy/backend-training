@@ -35,4 +35,50 @@ router.get('/student-details/:name', function(req, res){
     res.send('Dummy response')
 })
 
+router.get('/movies',function(req,res){
+    const movies=['‘Rang de basanti’' , '‘The shining’', '‘Lord of the rings’', '‘Batman begins’']
+    console.log(movies)
+    res.send(movies)
+
+})
+router.get('/movies/:indexNumber',function(req,res){
+    const movies=['‘Rang de basanti’' , '‘The shining’', '‘Lord of the rings’', '‘Batman begins’']
+  let request=req.params.indexNumber
+  console.log(movies[request])
+  res.send(movies[request])        
+})
+router.get('/movies/:indexNumber',function(req,res){
+    const movies=['‘Rang de basanti’' , '‘The shining’', '‘Lord of the rings’', '‘Batman begins’']
+    let request=req.params.indexNumber
+    if(request>movies.length){
+        res.send("Use a valied IndexNumber")
+    }else{
+        console.log(movies[request])
+        res.send(movies[request])  
+    }
+});
+router.get('/films',function(req,res){
+    const films=[ {'id': 1,'name': 'The Shining'},
+                  {'id': 2,'name': 'Incendies'},
+                  {'id': 3,'name': 'Rang de Basanti'},
+                  {'id': 4,'name': 'Finding Nemo'}]
+    
+                  console.log(films)
+        res.send(films)
+         });
+         router.get('/films/:filmId',function(req,res){
+            const films=[ {'id': 1,'name': 'The Shining'},
+                          {'id': 2,'name': 'Incendies'},
+                          {'id': 3,'name': 'Rang de Basanti'},
+                          {'id': 4,'name': 'Finding Nemo'}]
+        let request=req.params.filmId
+        let sam=JSON.stringify(request)
+           // console.log(sam)
+           if(request>films.length||request<1){
+            res.send("Invalied FilmId")
+           }else{
+        console.log(films[request-1])
+        res.send(films[request-1])}
+                 });
+
 module.exports = router;
