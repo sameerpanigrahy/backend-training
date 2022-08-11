@@ -1,6 +1,94 @@
 const express = require('express');
 const router = express.Router();
+let players =
+   [
+       {
+           "name": "manish",
+           "dob": "1/1/1995",
+           "gender": "male",
+           "city": "jalandhar",
+           "sports": [
+               "swimming"
+           ]
+       },
+       {
+           "name": "gopal",
+           "dob": "1/09/1995",
+           "gender": "male",
+           "city": "delhi",
+           "sports": [
+               "soccer"
+           ]
+       },
+       {
+           "name": "lokesh",
+           "dob": "1/1/1990",
+           "gender": "male",
+           "city": "mumbai",
+           "sports": [
+               "soccer"
+           ]}
+          ]
+  
+   router.post('/players', function (req, res) {
+    let ele= req.body
+  for(i=0;i<players.length;i++){
+    let object=players[i]
+    if(object.name==ele.name){
+     return res.send("This player is exist")
+    }
+  }
+    players.push(ele)
+    res.send(  { data: players , status: true }  )
+})
+let persons =[
+    {
+        name: "PK",
+        age: 10,
+        votingStatus: false
+        
+    },
+    {
+        name: "SK",
+        age: 20,
+        votingStatus: false
+        
+    },
+    {
+        name: "AA",
+        age: 70,
+        votingStatus: false
+        
+    },
+    {
+        name: "SC",
+        age: 5,
+        votingStatus: false
+        
+    },
+    {
+        name: "HO",
+        age: 40,
+        votingStatus: false
+        
+    },
+    {
+        name: "raj",
+        age: 18,
+        votingStatus: false
+        
+    }
+]
+router.post('/person',function(req,res){
+        let votingage=req.query.age
+        let newperson=persons.filter(ele=>{if(ele.age>=votingage){
+            return ele.votingStatus=true
+        }})
+        
+console.log(newperson)
+res.send(newperson)
 
+}) 
 router.get('/students/:name', function(req, res) {
     let studentName = req.params.name
     console.log(studentName)
@@ -67,7 +155,7 @@ router.post("/test-post-4", function(req, res) {
     let arr= [ 12, "functionup"]
     let ele= req.body.element
     arr.push(ele)
-    res.send(  { msg: arr , status: true }  )
+    res.send(  { msg: ele , status: true }  )
 })
 
 module.exports = router;
