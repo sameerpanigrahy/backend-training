@@ -9,8 +9,9 @@ const createBook= async function (req, res) {
 }
 const bookList= async function (req, res) {
      
-    let savedData= await BookModel.find().select( { bookName: 1, authorName: 1, _id: 0}).count()
+    let savedData= await BookModel.find().select( { bookName: 1, authorName: 1, _id: 0})
     res.send({msg: savedData})
+    
 }
 const getBooksInYear= async function (req, res) {
     let newyear=req.query.year
@@ -27,7 +28,7 @@ const getParticularBooks= async function (req, res) {
 }
 const   getXINRBooks= async function (req, res) {
 
-    let savedData= await BookModel.find({indianPrice:{$or:["500INR","100INR","200INR"]}})
+    let savedData= await BookModel.find({"prices.indianPrice": {$in: ["100INR", "200INR","500 INR"]}} )
     res.send({msg: savedData})
 }
 const   getRandomBooks = async function (req, res) {
