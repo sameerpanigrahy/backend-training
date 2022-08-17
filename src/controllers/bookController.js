@@ -8,7 +8,15 @@ const createBook= async function (req, res) {
     res.send({msg: savedData})
 }
 
-const getBooksData= async function (req, res) {
+
+
+
+
+
+
+
+
+/*const getBooksData= async function (req, res) {
     let allBooks= await BookModel.find( {authorName : "HO" } )
     console.log(allBooks)
     if (allBooks.length > 0 )  res.send({msg: allBooks, condition: true})
@@ -41,7 +49,7 @@ const deleteBooks= async function (req, res) {
      
      res.send( { msg: allBooks})
 }
-
+*/
 
 
 
@@ -54,6 +62,3 @@ const deleteBooks= async function (req, res) {
 
 
 module.exports.createBook= createBook
-module.exports.getBooksData= getBooksData
-module.exports.updateBooks= updateBooks
-module.exports.deleteBooks= deleteBooks
