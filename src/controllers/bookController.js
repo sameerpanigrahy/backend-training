@@ -1,64 +1,59 @@
 const { count } = require("console")
+const authorModel = require("../models/authorModel")
+const publisherModel=require("../models/publisherModel")
 const BookModel= require("../models/bookModel")
 
 const createBook= async function (req, res) {
     let data= req.body
+    let AI=data.author
+    let PI=data.publisher
+let valiAuthor= await authorModel.findById(AI).select({_id:1})
+let valiPublisher= await publisherModel.findById(PI).select({_id:1})
+    if(!AI||!valiAuthor){
+      let msgAI= !AI?"Auther ID is Required":"Enter a valied Auther ID";
+      return res.send(msgAI)
+    }else if(!PI||!valiPublisher){
+      let msgPI= !PI?"Publisher ID is Required":"Enter a valied Publisher ID";
+      return res.send(msgPI)
+    }
+      let savedData= await BookModel.create(data)
+    
+      res.send({msg:savedData})
+    
+}
+    
+const getbook=async function(req,res){
 
-    let savedData= await BookModel.create(data)
-    res.send({msg: savedData})
+        let saveData= await BookModel.find().populate(["author","publisher"])
+
+     res.send({msg:saveData})
 }
 
+const updateBook=async function(req,res){
+  let [data1,data2]=await publisherModel.find({name:["HarperCollins","Penguin"]}).select({_id:1})
+  //console.log(data1,data2)
+  let saveData= await BookModel.updateMany(
+    {publisher:[data1,data2]},
+    {$set:{isHardCover:true}},
+    {new:true})
 
-
-
-
-
-
-
-
-/*const getBooksData= async function (req, res) {
-    let allBooks= await BookModel.find( {authorName : "HO" } )
-    console.log(allBooks)
-    if (allBooks.length > 0 )  res.send({msg: allBooks, condition: true})
-    else res.send({msg: "No books found" , condition: false})
+res.send({msg:saveData})
 }
 
+const updateBookA=async function(req,res){
+  let [data1,data2,data3]=await authorModel.find({rating:{$gt:3.5}}).select({_id:1})
+  
+  let saveData= await BookModel.updateMany(
+     {author:[data1,data2,data3]},
+    {$inc:{price:+10}},
+     {new:true})
 
-const updateBooks= async function (req, res) {
-    let data = req.body // {sales: "1200"}
-    // let allBooks= await BookModel.updateMany( 
-    //     { author: "SK"} , //condition
-    //     { $set: data } //update in data
-    //  )
-    let allBooks= await BookModel.findOneAndUpdate( 
-        { authorName: "ABC"} , //condition
-        { $set: data }, //update in data
-        { new: true , upsert: true} ,// new: true - will give you back the updated document // Upsert: it finds and updates the document but if the doc is not found(i.e it does not exist) then it creates a new document i.e UPdate Or inSERT  
-     )
-     
-     res.send( { msg: allBooks})
+res.send({msg:saveData})
 }
-
-const deleteBooks= async function (req, res) {
-    // let data = req.body 
-    let allBooks= await BookModel.updateMany( 
-        { authorName: "FI"} , //condition
-        { $set: {isDeleted: true} }, //update in data
-        { new: true } ,
-     )
-     
-     res.send( { msg: allBooks})
-}
-*/
-
-
-
-// CRUD OPERATIONS:
-// CREATE
-// READ
-// UPDATE
-// DELETE
 
 
 
 module.exports.createBook= createBook
+module.exports.getbook=getbook
+module.exports.updateBook=updateBook
+module.exports.updateBookA=updateBookA
