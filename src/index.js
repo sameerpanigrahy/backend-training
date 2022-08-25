@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(MiddleC.middle2)
 
 
-mongoose.connect("mongodb+srv://panigrahisameer_200:iklsSoxrtvpy4JOK@cluster0.kyd9m93.mongodb.net/itsMe1-DB", {
+mongoose.connect("mongodb+srv://panigrahisameer_200:iklsSoxrtvpy4JOK@cluster0.kyd9m93.mongodb.net/Middleware1-DB", {
     useNewUrlParser: true
 })
 .then( () => console.log("MongoDb is connected"))

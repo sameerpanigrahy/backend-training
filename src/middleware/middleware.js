@@ -2,14 +2,15 @@ const moment=require('moment');
 
 
 const middleware= function(req,res,next){
-    console.log("This is my first Middle ware")
-    let personLogedIn=true
-    if(personLogedIn==true){
-        next()
-    }else{
-        res.send({msg:"person is not authenticate"})
+   const  user=req.headers.isfreeappuser
+    
+    
+    if(!user){
+      return  res.send({msg:"The request is missing a mandatory header"})
     }
-    //res.send({msg:"This my Middle-ware"})
+
+        req.body["isFreeAppUser"]=user
+        next()   
     
 }
 const middle2= function(req,res,next){
