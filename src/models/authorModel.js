@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-
-
 const authorSchema = new mongoose.Schema( {
     authorName:String,
 		age:Number,
@@ -11,8 +9,6 @@ const authorSchema = new mongoose.Schema( {
   
 
 }, { timestamps: true });
-
-
 
 
 module.exports = mongoose.model('newAuthor', authorSchema)

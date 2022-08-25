@@ -14,18 +14,10 @@ const bookSchema = new mongoose.Schema( {
     publisher: {
         type:ObjectId,
         ref:'newPublisher',
-        required:true,
-        
-    },
-    isHardCover:{type:Boolean,default:false}
+        required:true,},
+    isHardCover:{type:Boolean,default:false},
+    isCover:{type:Boolean,default:false}
 
 },{ timestamps: true});
-
-   
-
-
-
-
-
 
 module.exports = mongoose.model('myBook', bookSchema) //users

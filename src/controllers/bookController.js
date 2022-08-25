@@ -21,6 +21,8 @@ let valiPublisher= await publisherModel.findById(PI).select({_id:1})
       res.send({msg:savedData})
     
 }
+
+
     
 const getbook=async function(req,res){
 
@@ -28,6 +30,8 @@ const getbook=async function(req,res){
 
      res.send({msg:saveData})
 }
+
+
 
 const updateBook=async function(req,res){
   let [data1,data2]=await publisherModel.find({name:["HarperCollins","Penguin"]}).select({_id:1})
@@ -41,10 +45,10 @@ res.send({msg:saveData})
 }
 
 const updateBookA=async function(req,res){
-  let [data1,data2,data3]=await authorModel.find({rating:{$gt:3.5}}).select({_id:1})
+  let [data1,data2,data3,data4]=await authorModel.find({rating:{$gt:3.5}}).select({_id:1})
   
   let saveData= await BookModel.updateMany(
-     {author:[data1,data2,data3]},
+     {author:[data1,data2,data3,data4]},
     {$inc:{price:+10}},
      {new:true})
 

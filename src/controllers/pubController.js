@@ -9,7 +9,4 @@ const createPubli= async function (req, res) {
     res.send({msg: savedData})
 }
 
-
-
-
 module.exports.createPubli=createPubli
