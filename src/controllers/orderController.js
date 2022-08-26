@@ -16,7 +16,7 @@ let valiedProduct= await productModel.findById(PA).select({_id:1})
     }else if(!PA||!valiedProduct){
       let msgPA= !PA?"Product ID is Required":"Enter a valied Product ID";
       return res.send(msgPA)
-    }else if( freeuser!=='true'){
+    }else if( freeuser!==true){
         console.log("this user is not freeAppUser")
         let orderAmount=await productModel.findById(PA).select({price:1,_id:0})
         data.amount=orderAmount.price
@@ -28,9 +28,9 @@ let valiedProduct= await productModel.findById(PA).select({_id:1})
                 console.log("updated Blalance:",updateUser)
                   return res.send({msg: savedData})
               }
-        return res.send({msg:"In saficent balance"})
+        return res.send({msg:"Insufficient balance"})
             }
- 
+      data.amount=0
  let savedData= await orderModel.create(data)
   res.send({msg: savedData})
 }

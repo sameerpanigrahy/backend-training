@@ -8,8 +8,8 @@ const middleware= function(req,res,next){
     if(!user){
       return  res.send({msg:"The request is missing a mandatory header"})
     }
-
-        req.body["isFreeAppUser"]=user
+    const isFreeAppUser=Boolean(user)
+        req.body["isFreeAppUser"]=isFreeAppUser
         next()   
     
 }
