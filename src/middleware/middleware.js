@@ -1,13 +1,19 @@
 const moment=require('moment');
+let jwt = require('jsonwebtoken');
+
 
 
 const middleware= function(req,res,next){
-   const  user=req.headers.isfreeappuser
+   let  keya=req.headers["x-auth-token"]
+   let  keyb=req.headers["x-Auth-token"]
     
-    if(!user){
+    if(!keya&&!keyb){
       return  res.send({msg:"The request is missing a mandatory header"})
     }
-        req.body["isFreeAppUser"]=user
+    let decodedToken = jwt.verify(keya,'SAmSIM-Sr5slt178');
+  if (!decodedToken)  return res.send({ status: false, msg: "token is invalid" });
+      console.log(decodedToken)
+    
         next()   
 }
 const middle2= function(req,res,next){

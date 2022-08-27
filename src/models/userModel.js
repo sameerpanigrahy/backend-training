@@ -1,20 +1,16 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema( {
-          name: String,
-           balance:{type:Number,default:100}, // Default balance at user registration is 100
-           address:String,
-           age:Number,
-            gender:{
-               type:String,
-               enum:["male", "female", "other"]
-            }, // Allowed values are - “male”, “female”, “other”
-           isFreeAppUser:{
-               type:Boolean,default:false
-           } // Default false value.
-      
+    firstName: String,
+    lastName: String,
+    mobile : String,
+    emailId : {type:String,unique:true},
+    password : String,
+    gender: {type:String,enum:["male","female","LGBT"]},
+	isDeleted: {type:Boolean,default:false}, //default value is false 
+    age :Number,
 
 }, { timestamps: true} );
 
 
-module.exports = mongoose.model('User', userSchema) 
+module.exports = mongoose.model('Usercollection', userSchema) 
