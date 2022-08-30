@@ -6,7 +6,7 @@ const userModel= require("../models/userModel")
 
 const createuser= async function (req, res) {
     let data= req.body
-    let mailid=await userModel.find({emailId:data.emailId}).select({_id:0,emailId:1})
+    let mailid=await userModel.findOne({emailId:data.emailId}).select({_id:0,emailId:1})
     if(mailid) return res.send({status:false,msg:"User is alrady exist"})
     let savedData= await userModel.create(data)
     res.send({msg: savedData})
@@ -25,7 +25,7 @@ const logginuser=async function(req,res){
         'SAmSIM-Sr5slt178');
         console.log(token)
     res.setHeader("X-authentic",token)
-    res.send({status:true,msg:token})
+    res.status(200).send({status:true})
 }
 const getuser=async function(req,res){
     
@@ -56,4 +56,4 @@ module.exports.createuser=createuser
 module.exports.logginuser=logginuser
 module.exports.getuser=getuser
 module.exports.updateuser=updateuser
-module.exports.deleteuser=deleteuser
+module.exports.deleteuser=deleteuser  
