@@ -16,12 +16,17 @@ const authenticate = async function (req, res, next) {
   }
 }
 const authorization = async function (req, res, next) {
+ try { 
   userid = req.params.userId
+  if(!userid) return res.status(400).send({msg:"user iD is reuired"})
   authorized_id = req.decodedToken["userId"]
   if (userid == authorized_id) {
     next()
   } else {
-    return res.status(400).send({ status: false, msg: "Un-authorized_User" })
+    return res.status(403).send({ status: false, msg: "Un-authorized_User" })
+  }}
+  catch(err){
+    res.status(500).send({msg:err})
   }
 }
 
