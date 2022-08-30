@@ -11,6 +11,6 @@ router.post("/logginuser",usercontroller.logginuser )
 
 router.get("/getuser/:userId",Middle.authenticate,Middle.authorization, usercontroller.getuser  )
 
-router.put("/updateuser/:userId",Middle.authenticate, usercontroller.updateuser  )
-router.delete("/deleteuser/:userId",Middle.authenticate, usercontroller.deleteuser)
+router.put("/updateuser/:userId",Middle.authenticate,Middle.authorization, usercontroller.updateuser  )
+router.delete("/deleteuser/:userId",Middle.authenticate,Middle.authorization, usercontroller.deleteuser)
 module.exports = router;   

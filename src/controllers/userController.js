@@ -30,8 +30,9 @@ const logginuser=async function(req,res){
 const getuser=async function(req,res){
     
     let userid=req.params.userId
-    let savedData=await userModel.findById(userid)
-    if(!savedData) return res.send({status:false,msg:"Invalied user Id"})
+    if(!userid) return res.staus(400).send({msg:"U"})
+    let savedData=await userModel.findOne({_id:userid,isDeleted:false})
+    if(!savedData) return res.send({status:false,msg:"Invalied user"})
     res.send({status:true,msg:savedData})
 }
 const updateuser=async function(req,res){
