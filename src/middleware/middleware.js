@@ -6,7 +6,7 @@ let jwt = require('jsonwebtoken');
 const authenticate = async function (req, res, next) {
   try {
     let token = req.headers["x-auth-token"] || req.headers["x-Auth-Token"]
-    if (!token) return res.status(400).send({ status: false, msg: "token must be present in the request header" })
+    if (!token) return res.status(406).send({ status: false, msg: "token must be present in the request header" })
     let decodedToken = jwt.verify(token, 'SAmSIM-Sr5slt178')
     req.decodedToken = decodedToken
     next()
@@ -43,6 +43,6 @@ const middle2 = function (req, res, next) {
 
 
 //module.exports.middleware=middleware
-module.exports.middle2 = middle2
+module.exports.middle2 = middle2 
 module.exports.authenticate = authenticate
 module.exports.authorization = authorization
