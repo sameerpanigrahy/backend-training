@@ -1,0 +1,23 @@
+{
+  "name": "projecturlshortner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vipulradon/projectUrlShortner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vipulradon/projectUrlShortner/issues"
+  },
+  "homepage": "https://github.com/vipulradon/projectUrlShortner#readme",
+  "dependencies": {
+    "valid-url": "^1.0.9"
+  }
+}
