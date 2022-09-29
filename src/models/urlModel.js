@@ -11,7 +11,6 @@ const urlSchema = new mongoose.Schema({
     longUrl: {
         type: String,
         trim: true,
-        valid:true,
         required: true
     },
     shortUrl: {
@@ -23,4 +22,4 @@ const urlSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 //........................................Export Schema..................................//
-module.exports = mongoose.model("Url", urlSchema);
+module.exports = mongoose.model("url", urlSchema);
