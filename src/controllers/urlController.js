@@ -10,11 +10,11 @@ const baseUrl = "http://localhost:3000"
 const shortenUrl = async function (req, res) {
 
     if (Object.keys(req.body).length > 1) return res.status(400).send({ status: false, message: "Request Body Cant Be Empty" });
-    const  longUrl  = req.body.longUrl;
-    
+    const { longUrl } = req.body
+
     if (typeof longUrl !== "string") return res.status(400).send({ status: false, message: "longUrl Should Be A String Only" });
     if (!validUrl.isUri(longUrl)) return res.status(400).send({ status: false, message: "Please Check The longUrl,its A InValid URL" });
-    
+
     const url = await urlModel.findOne({ longUrl: longUrl });
     if (url) {
         let obj = {
@@ -22,11 +22,11 @@ const shortenUrl = async function (req, res) {
             shortUrl: url.shortUrl,
             urlCode: url.urlCode
         }
-        return res.status(200).send({ status: true, data: obj });
+        return res.status(201).send({ status: true, data: obj });
     } else {
 
-        const  code = shortId.generate();
-        req.body.urlCode=code
+        const code = shortId.generate();
+        req.body.urlCode = code
         const shortenUrl = baseUrl + "/" + code;
         req.body.shortUrl = shortenUrl;
 
@@ -36,7 +36,7 @@ const shortenUrl = async function (req, res) {
             shortUrl: data.shortUrl,
             urlCode: data.urlCode
         }
-        return res.status(200).send({ data: obj })
+        return res.status(201).send({ status: true, data: obj })
 
     }
 }
@@ -46,12 +46,12 @@ const shortenUrl = async function (req, res) {
 const redirect = async function (req, res) {
 
     const urlcode = req.params.urlCode;
-    if (!urlcode) return res.status(400).send({ status: false, message: "Please Enter A UrlCode" })
+    if (!urlcode) return res.status(400).send({ status: false, message: "Please Enter A UrlCode" });
     if (!shortId.isValid(urlcode)) return res.status(400).send({ status: false, message: "Please Check The UrlCode" });
     let data = await urlModel.findOne({ urlCode: urlcode }).select({ longUrl: 1 });
-    if (!data) return res.status(404).send({ status: false, message: "No Url Found" })
-    let url = data.longUrl
-    return res.status(308).redirect(data.longUrl)
+    if (!data) return res.status(404).send({ status: false, message: "No Url Found" });
+    let url = data.longUrl;
+    return res.status(308).redirect(data.longUrl);
 
 }
 
