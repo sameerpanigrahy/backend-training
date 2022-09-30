@@ -1,18 +1,20 @@
 const urlModel = require("../models/urlModel");
 const validUrl = require("valid-url");
 const shortId = require("shortid");
-const validator = require("validator")
-const { findOne } = require("../models/urlModel");
+
+
 const baseUrl = "http://localhost:3000"
 
 
 
 const shortenUrl = async function (req, res) {
+
     if (Object.keys(req.body).length > 1) return res.status(400).send({ status: false, message: "Request Body Cant Be Empty" });
-    const { longUrl } = req.body;
-    if (!longUrl) return res.status(400).send({ status: false, message: "Please Enter longUrl,Its A Mandatory Field" });
+    const  longUrl  = req.body.longUrl;
+    
     if (typeof longUrl !== "string") return res.status(400).send({ status: false, message: "longUrl Should Be A String Only" });
-    if (!validator.isURL(longUrl)) return res.status(400).send({ status: false, message: "Please Check The longUrl,its A InValid URL" });
+    if (!validUrl.isUri(longUrl)) return res.status(400).send({ status: false, message: "Please Check The longUrl,its A InValid URL" });
+    
     const url = await urlModel.findOne({ longUrl: longUrl });
     if (url) {
         let obj = {
@@ -23,8 +25,8 @@ const shortenUrl = async function (req, res) {
         return res.status(200).send({ status: true, data: obj });
     } else {
 
-        req.body.urlCode = shortId.generate();
-        const code = req.body.urlCode;
+        const  code = shortId.generate();
+        req.body.urlCode=code
         const shortenUrl = baseUrl + "/" + code;
         req.body.shortUrl = shortenUrl;
 
