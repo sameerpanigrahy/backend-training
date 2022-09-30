@@ -11,7 +11,7 @@ const shortenUrl = async function (req, res) {
 
 
     try {
-        let data = req.body
+        const data = req.body
         if (Object.keys(data).length > 1) return res.status(400).send({ status: false, message: "Request Body Cant Be Empty" });
         const { longUrl } = data
 
@@ -49,7 +49,7 @@ const redirect = async function (req, res) {
         const urlcode = req.params.urlCode;
         if (!urlcode) return res.status(400).send({ status: false, message: "Please Enter A UrlCode" });
         if (!shortId.isValid(urlcode)) return res.status(400).send({ status: false, message: "Please Check The UrlCode" });
-        let data = await urlModel.findOne({ urlCode: urlcode }).select({ longUrl: 1 });
+        const data = await urlModel.findOne({ urlCode: urlcode }).select({ longUrl: 1 });
         if (!data) return res.status(404).send({ status: false, message: "No Url Found" });
         return res.status(308).redirect(data.longUrl);
     }
