@@ -15,7 +15,7 @@ const shortenUrl = async function (req, res) {
     if (typeof longUrl !== "string") return res.status(400).send({ status: false, message: "longUrl Should Be A String Only" });
     if (!validUrl.isUri(longUrl)) return res.status(400).send({ status: false, message: "Please Check The longUrl,its A InValid URL" });
 
-    const url = await urlModel.findOne({ longUrl: longUrl });
+    const url = await urlModel.findOne({ longUrl: longUrl }).select({_id:0,urlCode:1,longUrl:1,shortUrl:1});
     if (url) {
         return res.status(201).send({ status: true, data: url });
     } else {

@@ -1,7 +1,7 @@
 {
   "name": "projecturlshortner",
   "version": "1.0.0",
-  "description": "",
+  "description": "This project is basically a program for shortening a Long Url ",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,7 +12,7 @@
     "url": "git+https://github.com/vipulradon/projectUrlShortner.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Vipul,Sameer,neelanchal,Mahesh",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/vipulradon/projectUrlShortner/issues"
