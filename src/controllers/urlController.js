@@ -17,12 +17,7 @@ const shortenUrl = async function (req, res) {
 
     const url = await urlModel.findOne({ longUrl: longUrl });
     if (url) {
-        let obj = {
-            longUrl: url.longUrl,
-            shortUrl: url.shortUrl,
-            urlCode: url.urlCode
-        }
-        return res.status(201).send({ status: true, data: obj });
+        return res.status(201).send({ status: true, data: url });
     } else {
 
         const code = shortId.generate();
@@ -50,7 +45,6 @@ const redirect = async function (req, res) {
     if (!shortId.isValid(urlcode)) return res.status(400).send({ status: false, message: "Please Check The UrlCode" });
     let data = await urlModel.findOne({ urlCode: urlcode }).select({ longUrl: 1 });
     if (!data) return res.status(404).send({ status: false, message: "No Url Found" });
-    let url = data.longUrl;
     return res.status(308).redirect(data.longUrl);
 
 }
