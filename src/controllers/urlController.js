@@ -49,7 +49,7 @@ const redirect = async function (req, res) {
     let data = await urlModel.findOne({ urlCode: urlcode }).select({ longUrl: 1 });
     if (!data) return res.status(404).send({ status: false, message: "No Url Found" })
     let url = data.longUrl
-    return res.status(308).send("Redirecting To  " + url)
+    return res.status(308).redirect(data.longUrl)
 
 }
 
