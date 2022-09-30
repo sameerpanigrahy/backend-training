@@ -9,9 +9,11 @@ const baseUrl = "http://localhost:3000"
 
 const shortenUrl = async function (req, res) {
 
+
     try {
-        if (Object.keys(req.body).length > 1) return res.status(400).send({ status: false, message: "Request Body Cant Be Empty" });
-        const { longUrl } = req.body
+        let data = req.body
+        if (Object.keys(data).length > 1) return res.status(400).send({ status: false, message: "Request Body Cant Be Empty" });
+        const { longUrl } = data
 
         if (typeof longUrl !== "string") return res.status(400).send({ status: false, message: "longUrl Should Be A String Only" });
         if (!validUrl.isUri(longUrl)) return res.status(400).send({ status: false, message: "Please Check The longUrl,its A InValid URL" });
@@ -22,18 +24,17 @@ const shortenUrl = async function (req, res) {
         } else {
 
             const code = shortId.generate();
-            req.body.urlCode = code
+            data.urlCode = code
             const shortenUrl = baseUrl + "/" + code;
-            req.body.shortUrl = shortenUrl;
+            data.shortUrl = shortenUrl;
 
-            const data = await urlModel.create(req.body);
+            const savedData = await urlModel.create(data);
             const obj = {
-                longUrl: data.longUrl,
-                shortUrl: data.shortUrl,
-                urlCode: data.urlCode
+                longUrl: savedData.longUrl,
+                shortUrl: savedData.shortUrl,
+                urlCode: savedData.urlCode
             }
             return res.status(201).send({ status: true, data: obj })
-
         }
     }
     catch (error) {
