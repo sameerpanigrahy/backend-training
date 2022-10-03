@@ -39,19 +39,9 @@ const shortenUrl = async function (req, res) {
 
 
 
-const redirect = async function (req, res) {
-
-    const urlcode = req.params.urlCode;
-    if (!urlcode) return res.status(400).send({ status: false, message: "Please Enter A UrlCode" });
-    if (!shortId.isValid(urlcode)) return res.status(400).send({ status: false, message: "Please Check The UrlCode" });
-    let data = await urlModel.findOne({ urlCode: urlcode }).select({ longUrl: 1 });
-    if (!data) return res.status(404).send({ status: false, message: "No Url Found" });
-    return res.status(308).redirect(data.longUrl);
-
-}
 
 
 
 
 
-module.exports = { shortenUrl, redirect }
+module.exports = { shortenUrl}
