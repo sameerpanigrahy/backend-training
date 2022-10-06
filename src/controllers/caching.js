@@ -38,14 +38,14 @@ const fetchLongUrl = async function (req, res) {
     if (!shortId.isValid(urlcode)) return res.status(400).send({ status: false, message: "Please Check The UrlCode" });
     
   let cahcedProfileData = await GET_ASYNC(`${urlcode}`)
-  console.log(cahcedProfileData)
+  
   if(cahcedProfileData) {
     return res.status(308).redirect(cahcedProfileData);
   } else {
     let data = await urlModel.findOne({ urlCode: urlcode }).select({ longUrl: 1 });
     if (!data) return res.status(404).send({ status: false, message: "No Url Found" });
    let create= await SET_ASYNC(`${urlcode}`,data.longUrl )
-   console.log(create)
+ 
     return res.status(308).redirect(data.longUrl);
   }
 
