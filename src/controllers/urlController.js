@@ -32,7 +32,7 @@ const shortenUrl = async function (req, res) {
             return res.status(201).send({ status: true, data: url });
         } else {
 
-            const code = shortId.generate();
+            const code = shortId.generate().toLowerCase();
             data.urlCode = code
             const shortenUrl = baseUrl + "/" + code;
             data.shortUrl = shortenUrl;
