@@ -21,10 +21,11 @@ const shortenUrl = async function (req, res) {
             method:'get',
            url:longUrl
           }
-
           const valiedUrl= await axios(option)
           .then(()=>longUrl) //*panding & fulfiled promise handling....//
           .catch(()=>null) // reject promise handling"
+          if(!valiedUrl) return res.status(400).send({ status: false, message:" url is not valied" })
+          
           if(!valiedUrl) return res.status(400).send({ status: false, message:" url is not valied" })
         const url = await urlModel.findOne({ longUrl: longUrl }).select({ _id: 0, urlCode: 1, longUrl: 1, shortUrl: 1 });
         if (url) {
