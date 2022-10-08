@@ -50,7 +50,6 @@ const shortenUrl = async function (req, res) {
           .catch(()=>null) // reject promise handling"
           if(!valiedUrl) return res.status(400).send({ status: false, message:" url is not valied" })
           
-          if(!valiedUrl) return res.status(400).send({ status: false, message:" url is not valied" })
           let cachedProfileData = await GET_ASYNC(`${longUrl}`)
    
           if (cachedProfileData) {

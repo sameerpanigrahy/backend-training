@@ -5,7 +5,7 @@ const route = require('./routes/route');
 
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
 
 mongoose.connect("mongodb+srv://vipul-functionup:dHQN7pHckdlNc5gX@cluster0.hh8ax.mongodb.net/group21Database", { useNewUrlParser: true })
     .then(() => console.log("MongoDb is connected"))
@@ -25,3 +25,5 @@ app.use(function (req, res){
 app.listen(process.env.PORT || 3000, function () {
     console.log('Express app running on port ' + (process.env.PORT || 3000))
 });
+
+
